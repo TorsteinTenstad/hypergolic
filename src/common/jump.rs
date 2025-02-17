@@ -1,4 +1,11 @@
 use std::process::Command;
+
+#[cfg(windows)]
+const VSCODE_EXECUTABLE: &str = "code.cmd";
+
+#[cfg(not(windows))]
+const VSCODE_EXECUTABLE: &str = "code";
+
 pub enum JumpTerm {
     Error,
     Warning,
@@ -21,7 +28,7 @@ pub fn jump_on_term(line: &str, jump_term: &JumpTerm) -> Option<()> {
     for i in 0..error_path_with_line_and_col.len() {
         let n = error_path_with_line_and_col.len() - i;
         if std::path::Path::new(&error_path_with_line_and_col[0..n]).exists() {
-            Command::new("code.cmd")
+            Command::new(VSCODE_EXECUTABLE)
                 .arg("-g")
                 .arg(error_path_with_line_and_col)
                 .spawn()
