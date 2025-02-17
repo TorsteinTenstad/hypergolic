@@ -1,0 +1,23 @@
+[package]
+name = "nin"
+version = "0.1.0"
+edition = "2021"
+
+
+[lib]
+name = "common"
+path = "src/common/lib.rs"
+
+[[bin]]
+name = "nin"
+path = "src/nin/main.rs"
+
+[[bin]]
+name = "cb"
+path = "src/cb/main.rs"
+
+[dependencies]
+clap = "4.5.28"
+clap_derive = "4.5.28"
+colored = "2.1.0"
+regex = "1.11.1"
