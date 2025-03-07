@@ -1,7 +1,7 @@
 use clap::Parser;
 use common::arg_cache::update_string_cache;
 use common::jump::jump_on_term;
-use common::log::{log_blue, log_green};
+use common::log::{log_blue, log_green, log_red};
 use std::io::BufRead;
 use std::process::{exit, Command};
 
@@ -43,10 +43,14 @@ fn main() {
         ".cb",
         "last_csolution_yml",
         args.csolution_yml,
-    );
+    )
+    .unwrap_or_else(|| {
+        log_red("No project file specified and no cached project file found");
+        exit(1);
+    });
 
     if args.clean {
-        log_blue(format!("cbuild {} --clean", csolution_yml));
+        log_blue(&format!("cbuild {} --clean", csolution_yml));
         let _ = Command::new("cbuild")
             .arg(&csolution_yml)
             .arg("--clean")
@@ -54,7 +58,7 @@ fn main() {
             .expect("Failed to execute cbuild clean command");
     }
 
-    log_blue(format!("cbuild {} --context-set --packs", csolution_yml));
+    log_blue(&format!("cbuild {} --context-set --packs", csolution_yml));
     let start_time = std::time::Instant::now();
 
     let mut cbuild = Command::new("cbuild")
@@ -77,7 +81,7 @@ fn main() {
         if jump_on_term(&line, &jump_term).is_some() {
             issue_count += 1;
             if issue_count < args.skip_issues {
-                log_blue("Skipping issue".to_string());
+                log_blue("Skipping issue");
             } else {
                 cbuild.kill().expect("Failed to terminate cbuild process");
                 exit(1);
@@ -89,5 +93,5 @@ fn main() {
 
     let _ = cbuild.wait().expect("Failed to wait on cbuild process");
 
-    log_green(format!("Finished in {:?}", elapsed));
+    log_green(&format!("Finished in {:?}", elapsed));
 }

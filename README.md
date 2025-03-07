@@ -1,5 +1,5 @@
 # Hypergolic 🚀
-A collection of tools that improves developer protuctivity.
+A collection of tools that improves developer productivity.
 
 All tools are written in rust. Use cargo to build all tools with
 
@@ -8,17 +8,16 @@ All tools are written in rust. Use cargo to build all tools with
 ## nin
 Wrapper for ninja that jumps VSCode to the source location of the first compilation error
 ```text
-Usage: nin.exe [OPTIONS] [TARGET]
-
-Arguments:
-  [TARGET]  Target to build. If not specified, use the last target as determined by the cache
+Usage: nin [OPTIONS]
 
 Options:
-      --cache_dir <DIR>     Features that require persistent state between executions creates files in <PATH>/.nin/. If not specified, use the ninja build directory
-  -b, --build-dir <DIR>     Directory where ninja build files are located [default: build]
-  -c, --clean               Clean out the build directory before building
-  -w, --warnings-as-errors  Treat warnings as errors
-  -h, --help                Print help
+      --cache_dir <DIR>               Features that require persistent state between executions creates files in <PATH>/.nin/. If not specified, use the ninja build directory
+  -b, --build-dir <DIR>               Directory where ninja build files are located [default: build]
+  -t, --target <TARGET>               Target to build. If not specified, use the last target as determined by the cache
+  -i, --interactive-target-selection  Select a target to build from the list of available targets
+  -c, --clean                         Clean out the build directory before building
+  -w, --warnings-as-errors            Treat warnings as errors
+  -h, --help                          Print help
 ```
 
 ## cb

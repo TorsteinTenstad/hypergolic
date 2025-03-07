@@ -12,14 +12,14 @@ const BLUE: Color = Color::TrueColor {
     b: 187,
 };
 
-pub fn log_green(msg: String) {
+pub fn log_green(msg: &str) {
     println!("{}", msg.color(GREEN));
 }
 
-pub fn log_blue(msg: String) {
+pub fn log_blue(msg: &str) {
     println!("{}", msg.color(BLUE));
 }
 
-pub fn log_red(msg: String) {
+pub fn log_red(msg: &str) {
     println!("{}", msg.color(Color::Red));
 }
